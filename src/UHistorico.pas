@@ -18,6 +18,7 @@ type
     tbLogDownload: TFDTable;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     FGestorBanco: TGestorBanco;
   end;
@@ -28,6 +29,12 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TFHistorico.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  FHistorico.Release;
+  FHistorico := nil;
+end;
 
 procedure TFHistorico.FormCreate(Sender: TObject);
 begin
