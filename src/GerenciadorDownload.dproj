@@ -136,6 +136,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="UGestorDownload.pas"/>
+        <DCCReference Include="UGestorBanco.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -162,7 +163,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\GerenciadorDownload.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="..\bin\GerenciadorDownload.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>GerenciadorDownload.exe</RemoteName>
                         <Overwrite>true</Overwrite>

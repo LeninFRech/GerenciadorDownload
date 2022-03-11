@@ -4,8 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.FileCtrl,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, UGestorDownload;
+  System.Classes, Vcl.Graphics, Vcl.FileCtrl, Vcl.ComCtrls,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.UITypes,
+  UGestorDownload, UGestorBanco;
 
 type
   TFPrincipal = class(TForm)
@@ -15,6 +16,7 @@ type
     BParar: TButton;
     BExibirMsg: TButton;
     BExibirHistorico: TButton;
+    BarraProgresso: TProgressBar;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BIniciarClick(Sender: TObject);
     procedure BPararClick(Sender: TObject);
@@ -24,11 +26,13 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     FGestorDownload: TGestorDownload;
+    FGestorBanco: TGestorBanco;
+    procedure OnEncerrarDownload(const Sucesso: Boolean);
+    procedure OnIniciarDownload;
   end;
 
 var
   FPrincipal: TFPrincipal;
-
 
 implementation
 
@@ -39,25 +43,46 @@ uses UHistorico;
 procedure TFPrincipal.FormCreate(Sender: TObject);
 begin
   FGestorDownload := TGestorDownload.Create;
+  FGestorDownload.OnEncerrarDownload := OnEncerrarDownload;
+  FGestorDownload.OnIniciarDownload := OnIniciarDownload;
+  FGestorDownload.BarraProgresso := BarraProgresso;
+  FGestorBanco := TGestorBanco.Create;
 end;
 
 procedure TFPrincipal.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(FGestorDownload);
+  FreeAndNil(FGestorBanco);
+end;
+
+procedure TFPrincipal.OnEncerrarDownload(const Sucesso: Boolean);
+begin
+  if Sucesso then
+  begin
+    FGestorBanco.AtualizarDataFinalLogDownload;
+  end;
+end;
+
+procedure TFPrincipal.OnIniciarDownload;
+begin
+  FGestorBanco.InserirLogDownload(EUrlDownload.Text);
 end;
 
 procedure TFPrincipal.BExibirHistoricoClick(Sender: TObject);
 begin
   if FHistorico = nil then
+  begin
     Application.CreateForm(tFHistorico, FHistorico);
-  FHistorico.showmodal;
+  end;
+  FHistorico.ShowModal;
 end;
 
 procedure TFPrincipal.BExibirMsgClick(Sender: TObject);
 begin
   if FGestorDownload.ExecutandoDownload then
   begin
-    Application.MessageBox(Pchar(FGestorDownload.Progresso), 'Progresso Download', MB_OK);
+    Application.MessageBox(Pchar(FGestorDownload.Progresso),
+      'Progresso Download', MB_OK);
   end;
 end;
 
@@ -86,9 +111,5 @@ begin
 
   FGestorDownload.PararDownload;
 end;
-
-
-
-
 
 end.

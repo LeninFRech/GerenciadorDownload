@@ -2,7 +2,7 @@ object FPrincipal: TFPrincipal
   Left = 0
   Top = 0
   Caption = 'Principal'
-  ClientHeight = 130
+  ClientHeight = 170
   ClientWidth = 536
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -36,7 +36,7 @@ object FPrincipal: TFPrincipal
   end
   object BIniciar: TButton
     Left = 24
-    Top = 80
+    Top = 120
     Width = 100
     Height = 25
     Caption = 'Iniciar Download'
@@ -45,7 +45,7 @@ object FPrincipal: TFPrincipal
   end
   object BParar: TButton
     Left = 133
-    Top = 80
+    Top = 120
     Width = 100
     Height = 25
     Caption = 'Parar Download'
@@ -54,7 +54,7 @@ object FPrincipal: TFPrincipal
   end
   object BExibirMsg: TButton
     Left = 243
-    Top = 80
+    Top = 120
     Width = 100
     Height = 25
     Caption = 'Exibir Mensagem'
@@ -63,11 +63,18 @@ object FPrincipal: TFPrincipal
   end
   object BExibirHistorico: TButton
     Left = 352
-    Top = 80
+    Top = 120
     Width = 161
     Height = 25
     Caption = 'Exibir Hist'#243'rico de Downloads'
     TabOrder = 4
     OnClick = BExibirHistoricoClick
+  end
+  object BarraProgresso: TProgressBar
+    Left = 24
+    Top = 81
+    Width = 489
+    Height = 21
+    TabOrder = 5
   end
 end
