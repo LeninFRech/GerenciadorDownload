@@ -30,9 +30,6 @@ object FPrincipal: TFPrincipal
     Width = 489
     Height = 21
     TabOrder = 0
-    Text = 
-      'https://az764295.vo.msecnd.net/stable/78a4c91400152c0f27ba4d363e' +
-      'b56d2835f9903a/VSCodeUserSetup-x64-1.43.0.exe'
   end
   object BIniciar: TButton
     Left = 24
